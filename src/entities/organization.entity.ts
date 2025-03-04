@@ -1,15 +1,16 @@
-import { Project } from 'src/modules/projects/entities/project.entity';
-import { Role } from 'src/modules/roles/entities/role.entity';
-import { User } from 'src/modules/users/entities/user.entity';
-import { BaseEntity } from 'src/core/database/base.entity';
 import {
-  Entity,
   Column,
-  OneToMany,
-  ManyToOne,
+  Entity,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
   Relation,
 } from 'typeorm';
+
+import { BaseEntity } from './base.entity';
+import { Project } from './project.entity';
+import { Role } from './role.entity';
+import { User } from './user.entity';
 
 @Entity('organizations')
 export class Organization extends BaseEntity {

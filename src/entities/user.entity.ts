@@ -1,9 +1,3 @@
-import { Attachment } from 'src/modules/attachments/entities/attachment.entity';
-import { Comment } from 'src/modules/comments/entities/comment.entity';
-import { Organization } from 'src/modules/organizations/entities/organization.entity';
-import { Role } from 'src/modules/roles/entities/role.entity';
-import { Task } from 'src/modules/tasks/entities/task.entity';
-import { BaseEntity } from 'src/core/database/base.entity';
 import {
   Column,
   Entity,
@@ -12,6 +6,13 @@ import {
   OneToMany,
   Relation,
 } from 'typeorm';
+
+import { Attachment } from './attachment.entity';
+import { BaseEntity } from './base.entity';
+import { Comment } from './comment.entity';
+import { Organization } from './organization.entity';
+import { Role } from './role.entity';
+import { Task } from './task.entity';
 
 @Entity('users')
 export class User extends BaseEntity {

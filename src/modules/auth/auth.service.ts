@@ -8,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 
-import { User } from '../users/entities/user.entity';
+import { User } from '../../entities/user.entity';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 
@@ -28,8 +28,9 @@ export class AuthService {
     const payload: IUserPayload = {
       email: user.email,
       sub: user.id,
-      role: user.role.name,
-      permissions: user.role.permissions.map((permission) => permission.name),
+      role: user.role?.name || '',
+      permissions:
+        user.role?.permissions.map((permission) => permission.name) || [],
     };
     const accessToken = this.jwtService.sign(payload);
     return { accessToken };

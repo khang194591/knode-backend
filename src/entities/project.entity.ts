@@ -1,7 +1,3 @@
-import { Expense } from 'src/modules/expenses/entities/expense.entity';
-import { Milestone } from 'src/modules/milestones/entities/milestone.entity';
-import { Organization } from 'src/modules/organizations/entities/organization.entity';
-import { BaseEntity } from 'src/core/database/base.entity';
 import {
   Column,
   Entity,
@@ -10,6 +6,11 @@ import {
   OneToMany,
   Relation,
 } from 'typeorm';
+
+import { BaseEntity } from './base.entity';
+import { Expense } from './expense.entity';
+import { Milestone } from './milestone.entity';
+import { Organization } from './organization.entity';
 
 @Entity('projects')
 export class Project extends BaseEntity {

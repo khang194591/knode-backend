@@ -1,6 +1,7 @@
-import { Role } from 'src/modules/roles/entities/role.entity';
-import { BaseEntity } from 'src/core/database/base.entity';
 import { Column, Entity, ManyToMany, Relation } from 'typeorm';
+
+import { BaseEntity } from './base.entity';
+import { Role } from './role.entity';
 
 @Entity('permissions')
 export class Permission extends BaseEntity {

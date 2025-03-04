@@ -1,6 +1,7 @@
-import { Project } from 'src/modules/projects/entities/project.entity';
-import { BaseEntity } from 'src/core/database/base.entity';
-import { Entity, Column, ManyToOne, JoinColumn, Relation } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+
+import { BaseEntity } from './base.entity';
+import { Project } from './project.entity';
 
 @Entity('expenses')
 export class Expense extends BaseEntity {

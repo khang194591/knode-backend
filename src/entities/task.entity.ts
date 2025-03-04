@@ -1,8 +1,3 @@
-import { Attachment } from 'src/modules/attachments/entities/attachment.entity';
-import { Comment } from 'src/modules/comments/entities/comment.entity';
-import { Milestone } from 'src/modules/milestones/entities/milestone.entity';
-import { User } from 'src/modules/users/entities/user.entity';
-import { BaseEntity } from 'src/core/database/base.entity';
 import {
   Column,
   Entity,
@@ -11,6 +6,12 @@ import {
   OneToMany,
   Relation,
 } from 'typeorm';
+
+import { Attachment } from './attachment.entity';
+import { BaseEntity } from './base.entity';
+import { Comment } from './comment.entity';
+import { Milestone } from './milestone.entity';
+import { User } from './user.entity';
 
 @Entity('tasks')
 export class Task extends BaseEntity {

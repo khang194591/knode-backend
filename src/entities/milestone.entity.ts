@@ -1,14 +1,15 @@
-import { Project } from 'src/modules/projects/entities/project.entity';
-import { Task } from 'src/modules/tasks/entities/task.entity';
-import { BaseEntity } from 'src/core/database/base.entity';
 import {
-  Entity,
   Column,
+  Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
-  JoinColumn,
   Relation,
 } from 'typeorm';
+
+import { BaseEntity } from './base.entity';
+import { Project } from './project.entity';
+import { Task } from './task.entity';
 
 @Entity('milestones')
 export class Milestone extends BaseEntity {

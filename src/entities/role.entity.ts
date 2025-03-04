@@ -1,7 +1,3 @@
-import { Organization } from 'src/modules/organizations/entities/organization.entity';
-import { Permission } from 'src/modules/permissions/entities/permission.entity';
-import { User } from 'src/modules/users/entities/user.entity';
-import { BaseEntity } from 'src/core/database/base.entity';
 import {
   Column,
   Entity,
@@ -12,6 +8,11 @@ import {
   OneToMany,
   Relation,
 } from 'typeorm';
+
+import { BaseEntity } from './base.entity';
+import { Organization } from './organization.entity';
+import { Permission } from './permission.entity';
+import { User } from './user.entity';
 
 @Entity('roles')
 export class Role extends BaseEntity {

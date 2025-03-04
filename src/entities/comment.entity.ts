@@ -1,7 +1,8 @@
-import { Task } from 'src/modules/tasks/entities/task.entity';
-import { User } from 'src/modules/users/entities/user.entity';
-import { BaseEntity } from 'src/core/database/base.entity';
 import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+
+import { BaseEntity } from './base.entity';
+import { Task } from './task.entity';
+import { User } from './user.entity';
 
 @Entity('comments')
 export class Comment extends BaseEntity {
