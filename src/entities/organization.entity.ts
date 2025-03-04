@@ -18,7 +18,7 @@ export class Organization extends BaseEntity {
   name: string;
 
   @Column({ nullable: true })
-  defaultRoleId: Nullable<number>;
+  defaultRoleId: Nullable<string>;
 
   @OneToMany(() => User, (user) => user.organization)
   users: Relation<User[]>;

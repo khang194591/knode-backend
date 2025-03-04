@@ -15,7 +15,7 @@ export class Expense extends BaseEntity {
   date: Date;
 
   @Column()
-  projectId: number;
+  projectId: string;
 
   @ManyToOne(() => Project, (project) => project.expenses)
   @JoinColumn({ name: 'projectId' })

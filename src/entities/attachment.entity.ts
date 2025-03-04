@@ -10,10 +10,10 @@ export class Attachment extends BaseEntity {
   fileUrl: string;
 
   @Column()
-  taskId: number;
+  taskId: string;
 
   @Column()
-  uploadedById: number;
+  uploadedById: string;
 
   @ManyToOne(() => Task, (task) => task.attachments)
   @JoinColumn({ name: 'taskId' })

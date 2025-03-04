@@ -1,10 +1,11 @@
 type Nullable<T> = T | null;
 
 interface IUserPayload {
+  id: string;
   email: string;
-  sub: number;
-  role: string;
+  roleId: string;
   permissions: string[];
+  organizationId: string;
 }
 
 declare namespace Express {

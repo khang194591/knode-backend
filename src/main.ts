@@ -17,6 +17,7 @@ async function bootstrap() {
     .setTitle('Knode API')
     .setDescription('Knode API description')
     .setVersion('1.0.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config, {
     operationIdFactory: (_, methodKey) => methodKey,

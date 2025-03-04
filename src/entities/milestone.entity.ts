@@ -23,7 +23,7 @@ export class Milestone extends BaseEntity {
   status: string;
 
   @Column()
-  projectId: number;
+  projectId: string;
 
   @ManyToOne(() => Project, (project) => project.milestones)
   @JoinColumn({ name: 'projectId' })

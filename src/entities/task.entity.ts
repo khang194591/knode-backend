@@ -28,13 +28,13 @@ export class Task extends BaseEntity {
   status: string;
 
   @Column()
-  milestoneId: number;
+  milestoneId: string;
 
   @Column({ nullable: true })
-  assignedToId: Nullable<number>;
+  assignedToId: Nullable<string>;
 
   @Column({ nullable: true })
-  dependsOnId: Nullable<number>;
+  dependsOnId: Nullable<string>;
 
   @ManyToOne(() => Milestone, (milestone) => milestone.tasks)
   @JoinColumn({ name: 'milestoneId' })

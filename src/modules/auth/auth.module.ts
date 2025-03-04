@@ -1,13 +1,12 @@
+import { User } from '@/entities/user.entity';
+import { AuthGuard } from '@/shared/guards/auth.guard';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { User } from '../../entities/user.entity';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from 'src/shared/guards/auth.guard';
 
 @Module({
   imports: [

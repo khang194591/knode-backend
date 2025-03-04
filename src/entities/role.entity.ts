@@ -7,6 +7,7 @@ import {
   ManyToOne,
   OneToMany,
   Relation,
+  Unique,
 } from 'typeorm';
 
 import { BaseEntity } from './base.entity';
@@ -15,14 +16,17 @@ import { Permission } from './permission.entity';
 import { User } from './user.entity';
 
 @Entity('roles')
+@Unique(['name', 'organizationId'])
 export class Role extends BaseEntity {
   @Column()
   name: string;
 
   @Column()
-  organizationId: number;
+  organizationId: string;
 
-  @ManyToOne(() => Organization, (organization) => organization.roles)
+  @ManyToOne(() => Organization, (organization) => organization.roles, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'organizationId' })
   organization: Relation<Organization>;
 

@@ -23,10 +23,10 @@ export class User extends BaseEntity {
   password: string;
 
   @Column({ nullable: true })
-  organizationId: Nullable<number>;
+  organizationId: Nullable<string>;
 
   @Column({ nullable: true })
-  roleId: Nullable<number>;
+  roleId: Nullable<string>;
 
   @OneToMany(() => Comment, (comment) => comment.user)
   comments: Relation<Comment[]>;

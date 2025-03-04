@@ -1,3 +1,4 @@
+import { User } from '@/entities';
 import {
   ConflictException,
   Injectable,
@@ -7,10 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
-
-import { User } from '../../entities/user.entity';
-import { SignInDto } from './dto/sign-in.dto';
-import { SignUpDto } from './dto/sign-up.dto';
+import { SignInDto, SignUpDto } from './dto';
 
 export interface IToken {
   accessToken: string;
@@ -24,13 +22,13 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  private generateToken(user: User): { accessToken: string } {
+  private generateToken(user: User): IToken {
     const payload: IUserPayload = {
+      id: user.id,
       email: user.email,
-      sub: user.id,
-      role: user.role?.name || '',
-      permissions:
-        user.role?.permissions.map((permission) => permission.name) || [],
+      roleId: user.roleId || '',
+      permissions: user.role?.permissions.map(({ name }) => name) || [],
+      organizationId: user.organizationId || '',
     };
     const accessToken = this.jwtService.sign(payload);
     return { accessToken };

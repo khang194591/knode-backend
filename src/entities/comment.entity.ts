@@ -10,10 +10,10 @@ export class Comment extends BaseEntity {
   content: string;
 
   @Column()
-  taskId: number;
+  taskId: string;
 
   @Column()
-  userId: number;
+  userId: string;
 
   @ManyToOne(() => Task, (task) => task.comments)
   @JoinColumn({ name: 'taskId' })

@@ -33,7 +33,7 @@ export class Project extends BaseEntity {
   status: string;
 
   @Column()
-  organizationId: number;
+  organizationId: string;
 
   @ManyToOne(() => Organization, (organization) => organization.projects)
   @JoinColumn({ name: 'organizationId' })
