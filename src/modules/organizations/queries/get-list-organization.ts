@@ -1,6 +1,7 @@
 import { Organization } from '@/entities';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
+import { plainToInstance } from 'class-transformer';
 import { Repository } from 'typeorm';
 import { GetListOrganizationDto, GetListOrganizationResDto } from '../dto';
 
@@ -20,7 +21,7 @@ export class GetListOrganizationQueryHandler
   async execute(
     query: GetListOrganizationQuery,
   ): Promise<GetListOrganizationResDto> {
-    const { page, limit, search } = query.dto;
+    const { page, pageSize, search } = query.dto;
     const queryBuilder = this.repository.createQueryBuilder('organization');
 
     if (search) {
@@ -29,18 +30,11 @@ export class GetListOrganizationQueryHandler
       });
     }
 
-    const [organizations, total] = await queryBuilder
-      .skip((page - 1) * limit)
-      .take(limit)
+    const [data, total] = await queryBuilder
+      .skip((page - 1) * pageSize)
+      .take(pageSize)
       .getManyAndCount();
 
-    return {
-      data: organizations,
-      meta: {
-        total,
-        page,
-        limit,
-      },
-    };
+    return plainToInstance(GetListOrganizationResDto, { data, total });
   }
 }

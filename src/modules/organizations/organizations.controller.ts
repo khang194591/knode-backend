@@ -1,3 +1,5 @@
+import { Permissions } from '@/shared/decorators';
+import { PermissionGuard } from '@/shared/guards';
 import {
   Body,
   Controller,
@@ -6,6 +8,8 @@ import {
   Param,
   Patch,
   Post,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {
@@ -21,6 +25,7 @@ import {
 import { GetListOrganizationQuery, GetOrganizationQuery } from './queries';
 
 @Controller('organizations')
+@UseGuards(PermissionGuard)
 export class OrganizationsController {
   constructor(
     private readonly commandBus: CommandBus,
@@ -28,12 +33,14 @@ export class OrganizationsController {
   ) {}
 
   @Post()
+  @Permissions('admin')
   create(@Body() dto: CreateOrganizationDto) {
     return this.commandBus.execute(new CreateOrganizationCommand(dto));
   }
 
   @Get()
-  getList(@Body() dto: GetListOrganizationDto) {
+  @Permissions('admin')
+  getList(@Query() dto: GetListOrganizationDto) {
     return this.queryBus.execute(new GetListOrganizationQuery(dto));
   }
 

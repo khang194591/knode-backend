@@ -1,10 +1,17 @@
-import { Organization } from '@/entities';
+import { Exclude, Expose, Type } from 'class-transformer';
 
+@Exclude()
 export class GetListOrganizationResDto {
-  data: Organization[];
-  meta: {
-    total: number;
-    page: number;
-    limit: number;
-  };
+  @Expose()
+  @Type(() => GetOrganizationResDto)
+  data: GetOrganizationResDto[];
+
+  @Expose()
+  total: number;
+}
+
+@Exclude()
+export class GetOrganizationResDto {
+  @Expose()
+  name: string;
 }

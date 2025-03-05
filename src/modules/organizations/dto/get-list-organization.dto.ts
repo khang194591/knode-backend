@@ -1,12 +1,7 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { PaginationDto } from '@/shared/dto';
+import { IsOptional, IsString } from 'class-validator';
 
-export class GetListOrganizationDto {
-  @IsNumber()
-  page: number;
-
-  @IsNumber()
-  limit: number;
-
+export class GetListOrganizationDto extends PaginationDto {
   @IsOptional()
   @IsString()
   search?: string;

@@ -21,7 +21,7 @@ export class SignInHandler implements ICommandHandler<SignInCommand> {
     let user = await this.userService.findByEmail(email);
 
     if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('error.invalidCredentials');
     }
 
     const isPasswordValid = await this.authService.compareHashPassword(
@@ -30,7 +30,7 @@ export class SignInHandler implements ICommandHandler<SignInCommand> {
     );
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('error.invalidCredentials');
     }
 
     user = await this.userService.findUserWithPermissionByEmail(email);
