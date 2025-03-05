@@ -1,6 +1,7 @@
 export * from './attachment.entity';
 export * from './comment.entity';
 export * from './expense.entity';
+export * from './member.entity';
 export * from './milestone.entity';
 export * from './organization.entity';
 export * from './permission.entity';

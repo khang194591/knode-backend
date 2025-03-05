@@ -4,6 +4,7 @@ interface IUserPayload {
   id: string;
   email: string;
   roleId: string;
+  memberId: string;
   permissions: string[];
   organizationId: string;
 }

@@ -8,9 +8,9 @@ import {
 } from 'typeorm';
 
 import { BaseEntity } from './base.entity';
+import { Member } from './member.entity';
 import { Project } from './project.entity';
 import { Role } from './role.entity';
-import { User } from './user.entity';
 
 @Entity('organizations')
 export class Organization extends BaseEntity {
@@ -20,8 +20,8 @@ export class Organization extends BaseEntity {
   @Column({ nullable: true })
   defaultRoleId: Nullable<string>;
 
-  @OneToMany(() => User, (user) => user.organization)
-  users: Relation<User[]>;
+  @OneToMany(() => Member, (member) => member.organization)
+  members: Relation<Member[]>;
 
   @OneToMany(() => Role, (role) => role.organization)
   roles: Relation<Role[]>;

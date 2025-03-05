@@ -1,21 +1,54 @@
 import { Public } from '@/shared/decorators';
-import { Body, Controller, Post } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { SignInDto, SignInResDto, SignUpDto, SignUpResDto } from './dto';
+import { extractToken } from '@/shared/utils';
+import {
+  Body,
+  Controller,
+  Post,
+  Req,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { CommandBus } from '@nestjs/cqrs';
+import { Request } from 'express';
+import {
+  SignInCommand,
+  SignUpCommand,
+  SwitchOrganizationCommand,
+} from './commands';
+import {
+  SignInDto,
+  SignInResDto,
+  SignUpDto,
+  SignUpResDto,
+  SwitchOrganizationDto,
+} from './dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   @Public()
   @Post('sign-up')
-  async signUp(@Body() signUpDto: SignUpDto): Promise<SignUpResDto> {
-    return this.authService.signUp(signUpDto);
+  async signUp(@Body() dto: SignUpDto): Promise<SignUpResDto> {
+    return this.commandBus.execute(new SignUpCommand(dto));
   }
 
   @Public()
   @Post('sign-in')
-  async signIn(@Body() signInDto: SignInDto): Promise<SignInResDto> {
-    return this.authService.signIn(signInDto);
+  async signIn(@Body() dto: SignInDto): Promise<SignInResDto> {
+    return this.commandBus.execute(new SignInCommand(dto));
+  }
+
+  @Post('switch-organization')
+  async switchOrganization(
+    @Req() req: Request,
+    @Body() dto: SwitchOrganizationDto,
+  ) {
+    const token = extractToken(req);
+
+    if (!token) {
+      throw new UnauthorizedException();
+    }
+
+    return this.commandBus.execute(new SwitchOrganizationCommand(token, dto));
   }
 }

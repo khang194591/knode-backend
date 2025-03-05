@@ -9,11 +9,10 @@ import {
   Relation,
   Unique,
 } from 'typeorm';
-
 import { BaseEntity } from './base.entity';
+import { Member } from './member.entity';
 import { Organization } from './organization.entity';
 import { Permission } from './permission.entity';
-import { User } from './user.entity';
 
 @Entity('roles')
 @Unique(['name', 'organizationId'])
@@ -38,6 +37,6 @@ export class Role extends BaseEntity {
   })
   permissions: Relation<Permission[]>;
 
-  @OneToMany(() => User, (user) => user.role)
-  users: Relation<User[]>;
+  @OneToMany(() => Member, (member) => member.role)
+  members: Relation<Member[]>;
 }

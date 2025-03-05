@@ -17,11 +17,14 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
     "dbm:init": "cd migrations && ts-node -r tsconfig-paths/register ../node_modules/typeorm/cli.js schema:sync -d ../ormconfig.migration.ts",
     "dbm:add": "cd migrations && ts-node -r tsconfig-paths/register ../node_modules/typeorm/cli.js migration:generate -d ../ormconfig.migration.ts",
     "dbm:run": "cd migrations && ts-node -r tsconfig-paths/register ../node_modules/typeorm/cli.js migration:run -d ../ormconfig.migration.ts",
-    "dbm:revert": "cd migrations && ts-node -r tsconfig-paths/register ../node_modules/typeorm/cli.js migration:revert -d ../ormconfig.migration.ts"
+    "dbm:revert": "cd migrations && ts-node -r tsconfig-paths/register ../node_modules/typeorm/cli.js migration:revert -d ../ormconfig.migration.ts",
+    "dbm:drop": "cd migrations && ts-node -r tsconfig-paths/register ../node_modules/typeorm/cli.js schema:drop -d ../ormconfig.migration.ts",
+    "dbs:add": "cd seeds && ts-node -r tsconfig-paths/register ../node_modules/typeorm/cli.js migration:create",
+    "dbs:run": "cd seeds && ts-node -r tsconfig-paths/register ../node_modules/typeorm/cli.js migration:run -d ../ormconfig.seed.ts",
+    "dbs:revert": "cd seeds && ts-node -r tsconfig-paths/register ../node_modules/typeorm/cli.js migration:revert -d ../ormconfig.seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

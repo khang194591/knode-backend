@@ -7,6 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
+import { extractToken } from '../utils';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -23,7 +24,7 @@ export class AuthGuard implements CanActivate {
     if (isPublic) return true;
 
     const request = context.switchToHttp().getRequest<Request>();
-    const token = this.extractToken(request);
+    const token = extractToken(request);
 
     if (!token) throw new UnauthorizedException('No token provided');
 
@@ -36,9 +37,5 @@ export class AuthGuard implements CanActivate {
     }
 
     return true;
-  }
-
-  private extractToken(request: Request): string | null {
-    return request.headers.authorization?.split(' ')[1] || null;
   }
 }
