@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
-import { GetCurrentUser, Permissions } from '@/shared/decorators';
+import { GetCurrentUser, RequirePermission } from '@/shared/decorators';
 import { PermissionGuard } from '@/shared/guards';
 import {
   CreateRoleCommand,
@@ -38,7 +38,7 @@ export class RolesController {
   ) {}
 
   @Post()
-  @Permissions('role:create')
+  @RequirePermission('role:create')
   create(
     @Body() dto: CreateRoleDto,
     @GetCurrentUser() user: IUserPayload,
@@ -49,7 +49,7 @@ export class RolesController {
   }
 
   @Get()
-  @Permissions('role:view')
+  @RequirePermission('role:view')
   findAll(
     @Query() query: GetListRoleQueryDto,
     @GetCurrentUser() user: IUserPayload,
@@ -64,13 +64,13 @@ export class RolesController {
   }
 
   @Get(':id')
-  @Permissions('role:view')
+  @RequirePermission('role:view')
   findOne(@Param('id') id: string, @GetCurrentUser() user: IUserPayload) {
     return this.queryBus.execute(new GetRoleQuery(id, user.organizationId));
   }
 
   @Patch(':id')
-  @Permissions('role:update')
+  @RequirePermission('role:update')
   update(
     @Param('id') id: string,
     @Body() dto: UpdateRoleDto,
@@ -83,7 +83,7 @@ export class RolesController {
 
   @Delete(':id')
   @UseGuards(PermissionGuard)
-  @Permissions('role:delete')
+  @RequirePermission('role:delete')
   remove(@Param('id') id: string, @GetCurrentUser() user: IUserPayload) {
     return this.commandBus.execute(
       new DeleteRoleCommand(id, user.organizationId),

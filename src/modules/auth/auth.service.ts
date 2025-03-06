@@ -1,11 +1,10 @@
 import { User } from '@/entities';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { Repository } from 'typeorm';
 
 export interface IToken {
+  payload: IUserPayload;
   accessToken: string;
 }
 
@@ -26,7 +25,7 @@ export class AuthService {
     };
 
     const accessToken = await this.jwtService.signAsync(payload);
-    return { accessToken };
+    return { payload, accessToken };
   }
 
   async hashPassword(password: string): Promise<string> {

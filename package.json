@@ -27,6 +27,12 @@
     "dbs:revert": "cd seeds && ts-node -r tsconfig-paths/register ../node_modules/typeorm/cli.js migration:revert -d ../ormconfig.seed.ts"
   },
   "dependencies": {
+    "@bull-board/api": "^6.7.10",
+    "@bull-board/express": "^6.7.10",
+    "@bull-board/nestjs": "^6.7.10",
+    "@keyv/redis": "^4.3.1",
+    "@nestjs/bullmq": "^11.0.2",
+    "@nestjs/cache-manager": "^3.0.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.1",
     "@nestjs/core": "^11.0.1",
@@ -37,6 +43,8 @@
     "@nestjs/swagger": "^11.0.6",
     "@nestjs/typeorm": "^11.0.0",
     "bcrypt": "^5.1.1",
+    "bullmq": "^5.41.7",
+    "cache-manager": "^6.4.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "nestjs-i18n": "^10.5.0",
@@ -74,5 +82,8 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.26.0"
+  },
+  "resolutions": {
+    "@bull-board/express/express": "5.0.1"
   }
 }

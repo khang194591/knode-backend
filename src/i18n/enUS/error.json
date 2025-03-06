@@ -1,4 +1,6 @@
 {
   "internalServerError": "Internal server error",
-  "invalidCredentials": "Invalid credentials"
+  "invalidCredentials": "Invalid credentials",
+  "missingPermissions": "User permissions not found",
+  "forbidden": "You do not have permission to access this resource"
 }

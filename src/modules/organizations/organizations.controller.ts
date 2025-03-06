@@ -1,4 +1,4 @@
-import { Permissions } from '@/shared/decorators';
+import { RequirePermission } from '@/shared/decorators';
 import { PermissionGuard } from '@/shared/guards';
 import {
   Body,
@@ -33,13 +33,13 @@ export class OrganizationsController {
   ) {}
 
   @Post()
-  @Permissions('admin')
+  @RequirePermission('admin')
   create(@Body() dto: CreateOrganizationDto) {
     return this.commandBus.execute(new CreateOrganizationCommand(dto));
   }
 
   @Get()
-  @Permissions('admin')
+  @RequirePermission('admin')
   getList(@Query() dto: GetListOrganizationDto) {
     return this.queryBus.execute(new GetListOrganizationQuery(dto));
   }

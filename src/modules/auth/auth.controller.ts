@@ -1,4 +1,4 @@
-import { Public } from '@/shared/decorators';
+import { IsPublic } from '@/shared/decorators';
 import { extractToken } from '@/shared/utils';
 import {
   Body,
@@ -26,13 +26,13 @@ import {
 export class AuthController {
   constructor(private readonly commandBus: CommandBus) {}
 
-  @Public()
+  @IsPublic()
   @Post('sign-up')
   async signUp(@Body() dto: SignUpDto): Promise<SignUpResDto> {
     return this.commandBus.execute(new SignUpCommand(dto));
   }
 
-  @Public()
+  @IsPublic()
   @Post('sign-in')
   async signIn(@Body() dto: SignInDto): Promise<SignInResDto> {
     return this.commandBus.execute(new SignInCommand(dto));

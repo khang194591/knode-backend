@@ -9,3 +9,15 @@ export class PaginationDto {
   @IsPositive()
   pageSize: number = 10;
 }
+
+export class PaginationResDto {
+  constructor(data: PaginationDto) {
+    Object.assign(this, data);
+  }
+
+  page: number;
+
+  pageSize: number;
+
+  total: number;
+}

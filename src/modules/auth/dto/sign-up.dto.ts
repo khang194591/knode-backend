@@ -1,5 +1,6 @@
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude } from 'class-transformer';
 import { IsEmail, IsString, MinLength } from 'class-validator';
+import { SignInResDto } from './sign-in.dto';
 
 export class SignUpDto {
   @IsEmail()
@@ -11,7 +12,4 @@ export class SignUpDto {
 }
 
 @Exclude()
-export class SignUpResDto {
-  @Expose()
-  accessToken: string;
-}
+export class SignUpResDto extends SignInResDto {}

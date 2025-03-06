@@ -23,6 +23,6 @@ export class SwitchOrganizationHandler
 
     payload.organizationId = dto.organizationId;
 
-    return { accessToken: await this.jwtService.signAsync(payload) };
+    return { payload, accessToken: await this.jwtService.signAsync(payload) };
   }
 }

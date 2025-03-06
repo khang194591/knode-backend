@@ -3,4 +3,13 @@ export const PermissionMap = {
   Admin: 'admin',
 };
 
-export const permissionList = ['super', 'admin'];
+export const permissionList = [
+  'super',
+  'admin',
+  'role:create',
+  'role:view',
+  'role:update',
+  'role:delete',
+] as const;
+
+export type IPermission = (typeof permissionList)[number];

@@ -1,25 +1,24 @@
+import { IPermission } from '@/modules/permissions/enums';
 import {
-  Injectable,
   CanActivate,
   ExecutionContext,
   ForbiddenException,
+  Injectable,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
+import { RequirePermissionKey } from '../decorators';
 
 @Injectable()
 export class PermissionGuard implements CanActivate {
-  constructor(
-    private readonly configService: ConfigService,
-    private readonly reflector: Reflector,
-  ) {}
+  constructor(private readonly reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
-    const requiredPermissions = this.reflector.get<string[]>(
-      'permissions',
+    const requiredPermissions = this.reflector.get<IPermission[]>(
+      RequirePermissionKey,
       context.getHandler(),
     );
+
     if (!requiredPermissions?.length) {
       return true;
     }
@@ -27,8 +26,8 @@ export class PermissionGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<Request>();
     const user = request.user;
 
-    if (!user || !user.roleId || !user.permissions) {
-      throw new ForbiddenException('User permissions not found');
+    if (!user || !user.roleId || !user.permissions.length) {
+      throw new ForbiddenException('error.missingPermissions');
     }
 
     const userPermissions = user.permissions;
@@ -38,9 +37,7 @@ export class PermissionGuard implements CanActivate {
     );
 
     if (!hasPermission) {
-      throw new ForbiddenException(
-        'You do not have permission to access this resource',
-      );
+      throw new ForbiddenException('error.forbidden');
     }
 
     return true;

@@ -12,10 +12,12 @@ import { RolesModule } from './modules/roles/roles.module';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { UsersModule } from './modules/users/users.module';
 import { I18nMiddleware } from 'nestjs-i18n';
+import { JobQueueModule } from './modules/queues/queue.module';
 
 @Module({
   imports: [
     CoreModule,
+    JobQueueModule,
     AuthModule,
     AttachmentsModule,
     CommentsModule,
