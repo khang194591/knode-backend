@@ -1,4 +1,5 @@
 {
+  "validation": "Validation failed",
   "internalServerError": "Internal server error",
   "invalidCredentials": "Invalid credentials",
   "missingPermissions": "User permissions not found",

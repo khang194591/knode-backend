@@ -7,12 +7,13 @@
   "transform": {
     "^.+\\.(t|j)s?$": ["@swc/jest"]
   },
-  "collectCoverageFrom": ["**/*.(t|j)s"],
+  "collectCoverageFrom": ["src/**/*.(t|j)s"],
   "coverageDirectory": "../coverage",
   "coveragePathIgnorePatterns": [
+    ".mock.ts",
     ".module.ts",
     "<rootDir>/src/main.ts",
-    ".mock.ts"
+    "<rootDir>/src/metadata.ts"
   ],
   "moduleNameMapper": {
     "^@/(.*)$": "<rootDir>/src/$1"

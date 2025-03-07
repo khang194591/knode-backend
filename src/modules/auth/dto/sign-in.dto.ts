@@ -3,11 +3,11 @@ import { IsEmail, IsString, MinLength } from 'class-validator';
 
 export class SignInDto {
   @IsEmail()
-  email: string = 'admin@knode.com';
+  email: string;
 
   @IsString()
   @MinLength(8)
-  password: string = 'admin@123';
+  password: string;
 }
 
 @Exclude()

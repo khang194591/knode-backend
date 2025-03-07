@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import metadata from './metadata';
+import { fromValidationErrors } from './shared/utils';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,7 +17,11 @@ async function bootstrap() {
   });
 
   app.useGlobalPipes(
-    new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      exceptionFactory: fromValidationErrors,
+    }),
   );
 
   await SwaggerModule.loadPluginMetadata(metadata);
