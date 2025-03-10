@@ -1,0 +1,55 @@
+http:
+  routers:
+    # Route: Map localhost:3000 to localhost:8080/api/auth
+    api-auth:
+      rule: 'Host(`localhost`) && PathPrefix(`/api/auth`)'
+      service: auth-service
+      entryPoints:
+        - web
+
+    # Route: Map localhost:3010 to localhost:8080/api/workspaces
+    api-workspaces:
+      rule: 'Host(`localhost`) && PathPrefix(`/api/workspaces`)'
+      service: workspaces-service
+      entryPoints:
+        - web
+
+    # Route: Map localhost:5000 to localhost:8080
+    api-root:
+      rule: 'Host(`localhost`)'
+      service: backend-service
+      entryPoints:
+        - web
+
+    # Route: Validate JWT for all /api/* requests
+    jwt-protected:
+      rule: 'Host(`localhost`) && PathPrefix(`/api`)'
+      middlewares:
+        - jwt-auth
+      service: backend-service
+      entryPoints:
+        - web
+
+  services:
+    auth-service:
+      loadBalancer:
+        servers:
+          - url: 'http://auth-service:3000'
+
+    workspaces-service:
+      loadBalancer:
+        servers:
+          - url: 'http://workspaces-service:3010'
+
+    backend-service:
+      loadBalancer:
+        servers:
+          - url: 'http://backend-service:5000'
+
+  middlewares:
+    jwt-auth:
+      forwardAuth:
+        address: 'http://jwt-auth-service:4000/validate'
+        authResponseHeaders:
+          - X-User-ID
+          - X-User-Role
